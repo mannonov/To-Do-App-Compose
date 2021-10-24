@@ -3,19 +3,21 @@ package com.jaxadev.todoappcompose
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.jaxadev.todoappcompose.ui.theme.ToDoAppComposeTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-          MyApp()
+            MyApp()
         }
     }
 }
@@ -23,6 +25,19 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MyApp() {
     Scaffold(content = {
+
         TodoHomeContent()
-    })
+
+    }, floatingActionButton = {
+        FloatingActionButton(
+            onClick = { /*TODO*/ },
+            backgroundColor = Color.DarkGray,
+            contentColor = Color.White,
+            elevation = FloatingActionButtonDefaults.elevation(8.dp),
+        ) {
+            Icon(Icons.Filled.Add, "")
+        }
+    },
+        floatingActionButtonPosition = FabPosition.End
+    )
 }
