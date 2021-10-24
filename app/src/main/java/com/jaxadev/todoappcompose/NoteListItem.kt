@@ -1,21 +1,23 @@
 package com.jaxadev.todoappcompose
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
-import androidx.compose.material.MaterialTheme.typography
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.jaxadev.todoappcompose.model.Note
 
 @Composable
-fun NoteListItem(note: Note) {
+fun NoteListItem(note: Note, navController: NavController) {
 
     Card(
         modifier = Modifier
@@ -26,7 +28,9 @@ fun NoteListItem(note: Note) {
         shape = RoundedCornerShape(corner = CornerSize(16.dp))
     ) {
 
-        Row(modifier = Modifier.background(Color.DarkGray)) {
+        Row(modifier = Modifier
+            .background(Color.DarkGray)
+            .clickable { navController.navigate(Screen.AddNewNoteScreen.withArgs(note.toString())) }) {
 
             Column(
                 modifier = Modifier
@@ -34,7 +38,11 @@ fun NoteListItem(note: Note) {
                     .fillMaxHeight()
                     .align(Alignment.CenterVertically)
             ) {
-                Text(text = note.id.toString(), style = typography.h5, color = Color.White)
+                Text(
+                    text = note.id.toString(),
+                    style = MaterialTheme.typography.h5,
+                    color = Color.White
+                )
             }
 
             Column(
@@ -44,10 +52,10 @@ fun NoteListItem(note: Note) {
                     .align(Alignment.CenterVertically)
 
             ) {
-                Text(text = note.title, style = typography.h6, color = Color.White)
+                Text(text = note.title, style = MaterialTheme.typography.h6, color = Color.White)
                 Text(
                     text = note.description,
-                    style = typography.caption,
+                    style = MaterialTheme.typography.caption,
                     maxLines = 1,
                     color = Color.White
                 )

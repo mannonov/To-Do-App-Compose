@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.jaxadev.todoappcompose.navigation.Navigation
 import com.jaxadev.todoappcompose.ui.theme.ToDoAppComposeTheme
 
 class MainActivity : ComponentActivity() {
@@ -26,7 +27,7 @@ class MainActivity : ComponentActivity() {
 fun MyApp() {
     Scaffold(content = {
 
-        TodoHomeContent()
+        Navigation()
 
     }, floatingActionButton = {
         FloatingActionButton(
