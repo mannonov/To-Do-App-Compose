@@ -2,6 +2,7 @@ package com.jaxadev.todoappcompose
 
 import android.app.Application
 import android.util.Log
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -11,6 +12,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -32,7 +34,12 @@ fun AddNewNoteScreen() {
         factory = TodoViewModelFactory(context.applicationContext as Application)
     )
 
-    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.Black),
+        contentAlignment = Alignment.Center
+    ) {
 
 
         Column(
@@ -49,7 +56,8 @@ fun AddNewNoteScreen() {
                 text = "Note",
                 style = TextStyle(
                     fontWeight = FontWeight.Bold,
-                    letterSpacing = 2.sp
+                    letterSpacing = 2.sp,
+                    color = Color.White
                 ),
                 fontSize = 30.sp
             )

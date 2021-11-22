@@ -1,5 +1,7 @@
 package com.jaxadev.todoappcompose
 
+import android.content.Context
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -12,12 +14,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.jaxadev.todoappcompose.database.Note
 
 @Composable
 fun NoteListItem(note: Note, navController: NavController) {
+
+    val context = LocalContext.current
 
     Card(
         modifier = Modifier
@@ -30,7 +35,9 @@ fun NoteListItem(note: Note, navController: NavController) {
 
         Row(modifier = Modifier
             .background(Color.DarkGray)
-            .clickable { navController.navigate(Screen.AddNewNoteScreen.withArgs(note.toString())) }) {
+            .clickable {
+                showMessage(context = context, note.id.toString())
+            }) {
 
             Column(
                 modifier = Modifier
@@ -64,3 +71,8 @@ fun NoteListItem(note: Note, navController: NavController) {
     }
 
 }
+
+fun showMessage(context: Context, message: String) {
+    Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+}
+

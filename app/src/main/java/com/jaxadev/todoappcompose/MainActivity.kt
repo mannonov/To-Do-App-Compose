@@ -31,16 +31,9 @@ fun MyApp() {
             Navigation()
 
         },
-//        floatingActionButton = {
-//        FloatingActionButton(
-//            onClick = { /*TODO*/ },
-//            backgroundColor = Color.DarkGray,
-//            contentColor = Color.White,
-//            elevation = FloatingActionButtonDefaults.elevation(8.dp),
-//        ) {
-//            Icon(Icons.Filled.Add, "")
-//        }
-//    },
-//        floatingActionButtonPosition = FabPosition.End
+        floatingActionButton = {
+
+    },
+        floatingActionButtonPosition = FabPosition.End
     )
 }

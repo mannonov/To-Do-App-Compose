@@ -3,9 +3,12 @@ package com.jaxadev.todoappcompose
 import android.app.Application
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.FloatingActionButton
+import androidx.compose.material.FloatingActionButtonDefaults
 import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -23,10 +26,6 @@ import com.jaxadev.todoappcompose.database.TodoViewModelFactory
 @Composable
 fun MainScreen(navController: NavController) {
 
-    FloatingActionButton(onClick = { navController.navigate(Screen.AddNewNoteScreen.withArgs("Empty")) }) {
-        Icon(Icons.Filled.Add, "")
-    }
-
     val context = LocalContext.current
     val mTodoViewModel: TodoViewModel = viewModel(
         factory = TodoViewModelFactory(context.applicationContext as Application)
@@ -37,7 +36,10 @@ fun MainScreen(navController: NavController) {
 
     LazyColumn(
         contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
-        modifier = Modifier.background(Color.Black)
+        modifier = Modifier
+            .background(Color.Black)
+            .fillMaxHeight()
+            .fillMaxWidth()
     ) {
 
         items(
@@ -46,6 +48,16 @@ fun MainScreen(navController: NavController) {
                 NoteListItem(note = it, navController = navController)
             }
         )
+    }
+
+    FloatingActionButton(
+        onClick = {  navController.navigate(Screen.AddNewNoteScreen.withArgs("Empty")) },
+        backgroundColor = Color.DarkGray,
+        contentColor = Color.White,
+        elevation = FloatingActionButtonDefaults.elevation(8.dp),
+
+    ) {
+        Icon(Icons.Filled.Add, "")
     }
 
 }
