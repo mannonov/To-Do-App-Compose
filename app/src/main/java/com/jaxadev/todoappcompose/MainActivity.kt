@@ -25,20 +25,22 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MyApp() {
-    Scaffold(content = {
+    Scaffold(
+        content = {
 
-        Navigation()
+            Navigation()
 
-    }, floatingActionButton = {
-        FloatingActionButton(
-            onClick = { /*TODO*/ },
-            backgroundColor = Color.DarkGray,
-            contentColor = Color.White,
-            elevation = FloatingActionButtonDefaults.elevation(8.dp),
-        ) {
-            Icon(Icons.Filled.Add, "")
-        }
-    },
-        floatingActionButtonPosition = FabPosition.End
+        },
+//        floatingActionButton = {
+//        FloatingActionButton(
+//            onClick = { /*TODO*/ },
+//            backgroundColor = Color.DarkGray,
+//            contentColor = Color.White,
+//            elevation = FloatingActionButtonDefaults.elevation(8.dp),
+//        ) {
+//            Icon(Icons.Filled.Add, "")
+//        }
+//    },
+//        floatingActionButtonPosition = FabPosition.End
     )
 }

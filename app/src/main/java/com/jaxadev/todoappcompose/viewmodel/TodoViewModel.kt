@@ -1,0 +1,59 @@
+package com.jaxadev.todoappcompose.database
+
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
+import com.jaxadev.todoappcompose.repository.TodoRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+
+class TodoViewModel(application: Application) : AndroidViewModel(application) {
+
+    val readAllData: LiveData<List<Note>>
+    private val repository: TodoRepository
+
+    init {
+        val todoDao = TodoDatabase.getInstance(application).todoDao()
+        repository = TodoRepository(todoDao)
+        readAllData = repository.readAllData
+    }
+
+    fun addTodo(todoItem: Note) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.addTodo(todoItem)
+        }
+    }
+
+    fun updateTodo(todoItem: Note) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.updateTodo(todoItem = todoItem)
+        }
+    }
+
+    fun deleteTodo(todoItem: Note) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.deleteTodo(todoItem = todoItem)
+        }
+    }
+
+    fun deleteAllTodos() {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.deleteAllTodos()
+        }
+    }
+}
+
+class TodoViewModelFactory(
+    private val application: Application
+) : ViewModelProvider.Factory {
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        @Suppress("UNCHECKED_CAST")
+        if (modelClass.isAssignableFrom(TodoViewModel::class.java)) {
+            return TodoViewModel(application) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
+    }
+}

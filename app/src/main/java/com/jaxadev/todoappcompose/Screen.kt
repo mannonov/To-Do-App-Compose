@@ -1,7 +1,5 @@
 package com.jaxadev.todoappcompose
 
-import com.jaxadev.todoappcompose.model.Note
-
 sealed class Screen(val route: String){
 
     object MainScreen : Screen("main_screen")

@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.jaxadev.todoappcompose.model.Note
+import com.jaxadev.todoappcompose.database.Note
 
 @Composable
 fun NoteListItem(note: Note, navController: NavController) {
