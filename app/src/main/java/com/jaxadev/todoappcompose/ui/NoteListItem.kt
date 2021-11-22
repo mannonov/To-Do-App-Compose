@@ -1,4 +1,4 @@
-package com.jaxadev.todoappcompose
+package com.jaxadev.todoappcompose.ui
 
 import android.content.Context
 import android.widget.Toast
@@ -23,6 +23,7 @@ import com.jaxadev.todoappcompose.database.Note
 fun NoteListItem(note: Note, navController: NavController) {
 
     val context = LocalContext.current
+
 
     Card(
         modifier = Modifier

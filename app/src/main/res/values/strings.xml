@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">To Do App Compose</string>
+    <string name="delete_all">Delete All</string>
 </resources>

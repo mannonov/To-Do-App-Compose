@@ -1,4 +1,4 @@
-package com.jaxadev.todoappcompose
+package com.jaxadev.todoappcompose.ui
 
 import android.app.Application
 import android.util.Log
@@ -19,12 +19,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import com.jaxadev.todoappcompose.database.Note
-import com.jaxadev.todoappcompose.database.TodoViewModel
-import com.jaxadev.todoappcompose.database.TodoViewModelFactory
+import com.jaxadev.todoappcompose.viewmodel.TodoViewModel
+import com.jaxadev.todoappcompose.viewmodel.TodoViewModelFactory
 
 @Composable
-fun AddNewNoteScreen() {
+fun AddNewNoteScreen(navController: NavController) {
 
     var textTitle by remember { mutableStateOf("") }
     var textDescription by remember { mutableStateOf("") }
@@ -57,7 +58,7 @@ fun AddNewNoteScreen() {
                 style = TextStyle(
                     fontWeight = FontWeight.Bold,
                     letterSpacing = 2.sp,
-                    color = Color.White
+                    color = Color.White,
                 ),
                 fontSize = 30.sp
             )
@@ -66,28 +67,44 @@ fun AddNewNoteScreen() {
                 OutlinedTextField(
                     value = textTitle,
                     onValueChange = { textTitle = it },
-                    label = { Text("Title") },
+                    label = { Text(text = "Text", color = Color.White) },
                     singleLine = true,
-                    modifier = Modifier.fillMaxWidth(0.8f),
+                    modifier = Modifier
+                        .fillMaxWidth(0.8f),
+                    colors = TextFieldDefaults.outlinedTextFieldColors(
+                        focusedBorderColor = Color.White,
+                        unfocusedBorderColor = Color.DarkGray,
+                        cursorColor = Color.White),
+                    textStyle = TextStyle(Color.White)
                 )
                 OutlinedTextField(
                     value = textDescription,
                     onValueChange = { textDescription = it },
-                    label = { Text("Description") },
+                    label = { Text("Description", color = Color.White) },
                     singleLine = true,
                     modifier = Modifier.fillMaxWidth(0.8f),
+                    colors = TextFieldDefaults.outlinedTextFieldColors(
+                        focusedBorderColor = Color.White,
+                        unfocusedBorderColor = Color.DarkGray,
+                        cursorColor = Color.White),
+                    textStyle = TextStyle(Color.White)
                 )
 
             }
             Spacer(modifier = Modifier.padding(20.dp))
             Button(
-                onClick = { insertTodoInDB(textTitle, textDescription, mTodoViewModel) },
+                onClick = {
+                    insertTodoInDB(textTitle, textDescription, mTodoViewModel)
+                    navController.navigate(Screen.MainScreen.route)
+                },
                 contentPadding = PaddingValues(
                     start = 20.dp,
                     top = 12.dp,
                     end = 20.dp,
                     bottom = 12.dp
-                )
+                ), colors = ButtonDefaults.buttonColors(
+                    backgroundColor = Color.DarkGray,
+                    contentColor = Color.White)
             ) {
                 Icon(
                     Icons.Filled.Add,
@@ -95,7 +112,7 @@ fun AddNewNoteScreen() {
                     modifier = Modifier.size(ButtonDefaults.IconSize)
                 )
                 Spacer(Modifier.size(ButtonDefaults.IconSpacing))
-                Text("Add Note")
+                Text("Add Note", color = Color.White)
             }
 
         }
@@ -104,7 +121,6 @@ fun AddNewNoteScreen() {
 }
 
 private fun insertTodoInDB(title: String, description: String, mTodoViewModel: TodoViewModel) {
-    Log.d("Buyerda", "insertTodoInDB: $title $description")
     val note = Note(title = title, description = description)
     mTodoViewModel.addTodo(note)
 }

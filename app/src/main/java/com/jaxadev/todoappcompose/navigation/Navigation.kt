@@ -6,9 +6,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navArgument
 import androidx.navigation.compose.rememberNavController
-import com.jaxadev.todoappcompose.AddNewNoteScreen
-import com.jaxadev.todoappcompose.MainScreen
-import com.jaxadev.todoappcompose.Screen
+import com.jaxadev.todoappcompose.ui.AddNewNoteScreen
+import com.jaxadev.todoappcompose.ui.MainScreen
+import com.jaxadev.todoappcompose.ui.Screen
 
 @Composable
 fun Navigation() {
@@ -29,7 +29,7 @@ fun Navigation() {
                 }
             )) {
 
-            AddNewNoteScreen()
+            AddNewNoteScreen(navController = navController)
 
         }
 

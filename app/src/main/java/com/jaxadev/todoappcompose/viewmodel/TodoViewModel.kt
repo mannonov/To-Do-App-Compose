@@ -1,12 +1,11 @@
-package com.jaxadev.todoappcompose.database
+package com.jaxadev.todoappcompose.viewmodel
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
+import com.jaxadev.todoappcompose.database.Note
+import com.jaxadev.todoappcompose.database.TodoDatabase
 import com.jaxadev.todoappcompose.repository.TodoRepository
+import com.jaxadev.todoappcompose.ui.Screen
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -14,6 +13,10 @@ class TodoViewModel(application: Application) : AndroidViewModel(application) {
 
     val readAllData: LiveData<List<Note>>
     private val repository: TodoRepository
+
+    val callAlertDialog: MutableLiveData<Boolean> by lazy {
+        MutableLiveData<Boolean>()
+    }
 
     init {
         val todoDao = TodoDatabase.getInstance(application).todoDao()
@@ -47,7 +50,7 @@ class TodoViewModel(application: Application) : AndroidViewModel(application) {
 }
 
 class TodoViewModelFactory(
-    private val application: Application
+    private val application: Application,
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         @Suppress("UNCHECKED_CAST")

@@ -1,4 +1,4 @@
-package com.jaxadev.todoappcompose
+package com.jaxadev.todoappcompose.ui
 
 sealed class Screen(val route: String){
 
