@@ -1,6 +1,7 @@
 package com.jaxadev.todoappcompose.ui.screens
 
 import android.app.Application
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -20,15 +21,19 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.google.gson.Gson
+import com.jaxadev.todoappcompose.database.Note
 import com.jaxadev.todoappcompose.database.TodoDatabase
 import com.jaxadev.todoappcompose.navigation.Screen
 
 @Composable
-fun NoteDetailsScreen(navController: NavController, id: String?) {
+fun NoteDetailsScreen(navController: NavController, id: String) {
 
     val context = LocalContext.current
     val todoDao = TodoDatabase.getInstance(context.applicationContext as Application).todoDao()
 
+    var note = Note(1, "Empty", "Empty")
+    val getById = todoDao.getById(id.toInt()).observeAsState().value
 
     Box(
         modifier = Modifier
@@ -55,8 +60,8 @@ fun NoteDetailsScreen(navController: NavController, id: String?) {
                 backgroundColor = Color.DarkGray,
             ) {
                 Text(
-                    text = (todoDao.getById(id!!.toInt()).observeAsState().value?.title
-                        ?: "Title Bo'sh bo'lib qoldi"),
+                    text = (getById?.title
+                        ?: "Empty Title"),
                     style = TextStyle(
                         fontWeight = FontWeight.Normal,
                         color = Color.White,
@@ -73,8 +78,8 @@ fun NoteDetailsScreen(navController: NavController, id: String?) {
                 backgroundColor = Color.DarkGray,
             ) {
                 Text(
-                    text = (todoDao.getById(id!!.toInt()).observeAsState().value?.description
-                        ?: "Description Bo'sh bo'lib qoldi"),
+                    text = (getById?.description
+                        ?: "Empty Description"),
                     style = TextStyle(
                         fontWeight = FontWeight.Normal,
                         color = Color.White,
@@ -97,7 +102,13 @@ fun NoteDetailsScreen(navController: NavController, id: String?) {
                 .padding(10.dp)
         ) {
             FloatingActionButton(
-                onClick = { navController.navigate(Screen.AddNewNoteScreen.route) },
+                onClick = {
+                    if (getById != null) {
+                        note = getById
+                    }
+                    Log.d("AmaqiHello", "NoteDetailsScreen: $note")
+                    navController.navigate(Screen.UpdateScreen.withArgs(Gson().toJson(note)))
+                },
                 backgroundColor = Color.DarkGray,
                 contentColor = Color.White,
                 elevation = FloatingActionButtonDefaults.elevation(8.dp)

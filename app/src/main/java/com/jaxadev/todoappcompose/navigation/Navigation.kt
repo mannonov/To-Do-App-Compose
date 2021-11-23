@@ -6,9 +6,12 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navArgument
 import androidx.navigation.compose.rememberNavController
+import com.google.gson.Gson
+import com.jaxadev.todoappcompose.database.Note
 import com.jaxadev.todoappcompose.ui.screens.AddNewNoteScreen
 import com.jaxadev.todoappcompose.ui.screens.MainScreen
 import com.jaxadev.todoappcompose.ui.screens.NoteDetailsScreen
+import com.jaxadev.todoappcompose.ui.screens.UpdateScreen
 
 @Composable
 fun Navigation() {
@@ -25,14 +28,29 @@ fun Navigation() {
             AddNewNoteScreen(navController = navController)
 
         }
-        composable(route = Screen.NoteDetailsScreen.route + "/{id}", arguments = listOf(navArgument("id") {
-            type = NavType.StringType
-            defaultValue = "1"
-            nullable = true
-        })) {
+        composable(route = Screen.NoteDetailsScreen.route + "/{id}",
+            arguments = listOf(navArgument("id") {
+                type = NavType.StringType
+                defaultValue = "1"
+                nullable = true
+            })) {
 
-            NoteDetailsScreen(navController = navController, id = it.arguments?.getString("id"))
+            it.arguments?.getString("id")
+                ?.let { NoteDetailsScreen(navController = navController, id = it) }
 
+
+        }
+
+        composable(route = Screen.UpdateScreen.route + "/{note}",
+            arguments = listOf(navArgument("note") { type = NavType.StringType
+            })) {
+
+            it.arguments?.getString("note")?.let {
+
+                val note = Gson().fromJson(it, Note::class.java)
+
+            UpdateScreen(navController = navController, note = note)
+            }
 
         }
 
