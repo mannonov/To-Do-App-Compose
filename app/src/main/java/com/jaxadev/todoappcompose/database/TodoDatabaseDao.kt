@@ -14,7 +14,7 @@ interface TodoDatabaseDao {
     fun getAll(): LiveData<List<Note>>
 
     @Query("SELECT * from my_todo_list where id = :id")
-    fun getById(id: Int): Note?
+    fun getById(id: Int): LiveData<Note>
 
     @Insert
     suspend fun insert(item: Note)

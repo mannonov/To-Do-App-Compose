@@ -6,9 +6,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navArgument
 import androidx.navigation.compose.rememberNavController
-import com.jaxadev.todoappcompose.ui.AddNewNoteScreen
-import com.jaxadev.todoappcompose.ui.MainScreen
-import com.jaxadev.todoappcompose.ui.Screen
+import com.jaxadev.todoappcompose.ui.screens.AddNewNoteScreen
+import com.jaxadev.todoappcompose.ui.screens.MainScreen
+import com.jaxadev.todoappcompose.ui.screens.NoteDetailsScreen
 
 @Composable
 fun Navigation() {
@@ -20,16 +20,19 @@ fun Navigation() {
             MainScreen(navController = navController)
 
         }
-        composable(route = Screen.AddNewNoteScreen.route + "/{id}",
-            arguments = listOf(
-                navArgument("note") {
-                    type = NavType.StringType
-                    defaultValue = "Empty Note"
-                    nullable = true
-                }
-            )) {
+        composable(route = Screen.AddNewNoteScreen.route) {
 
             AddNewNoteScreen(navController = navController)
+
+        }
+        composable(route = Screen.NoteDetailsScreen.route + "/{id}", arguments = listOf(navArgument("id") {
+            type = NavType.StringType
+            defaultValue = "1"
+            nullable = true
+        })) {
+
+            NoteDetailsScreen(navController = navController, id = it.arguments?.getString("id"))
+
 
         }
 

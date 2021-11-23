@@ -5,7 +5,6 @@ import androidx.lifecycle.*
 import com.jaxadev.todoappcompose.database.Note
 import com.jaxadev.todoappcompose.database.TodoDatabase
 import com.jaxadev.todoappcompose.repository.TodoRepository
-import com.jaxadev.todoappcompose.ui.Screen
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

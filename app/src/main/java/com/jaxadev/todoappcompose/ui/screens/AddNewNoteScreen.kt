@@ -1,7 +1,6 @@
-package com.jaxadev.todoappcompose.ui
+package com.jaxadev.todoappcompose.ui.screens
 
 import android.app.Application
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -21,6 +20,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.jaxadev.todoappcompose.database.Note
+import com.jaxadev.todoappcompose.navigation.Screen
 import com.jaxadev.todoappcompose.viewmodel.TodoViewModel
 import com.jaxadev.todoappcompose.viewmodel.TodoViewModelFactory
 
@@ -45,10 +45,10 @@ fun AddNewNoteScreen(navController: NavController) {
 
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center,
+            verticalArrangement = Arrangement.Top,
             modifier = Modifier
                 .fillMaxWidth()
-                .fillMaxHeight(0.60f)
+                .fillMaxHeight()
                 .clip(RoundedCornerShape(topStart = 38.dp, topEnd = 38.dp))
                 .padding(10.dp)
         ) {
@@ -67,8 +67,8 @@ fun AddNewNoteScreen(navController: NavController) {
                 OutlinedTextField(
                     value = textTitle,
                     onValueChange = { textTitle = it },
-                    label = { Text(text = "Text", color = Color.White) },
-                    singleLine = true,
+                    label = { Text(text = "Title", color = Color.White) },
+                    singleLine = false,
                     modifier = Modifier
                         .fillMaxWidth(0.8f),
                     colors = TextFieldDefaults.outlinedTextFieldColors(
@@ -81,8 +81,10 @@ fun AddNewNoteScreen(navController: NavController) {
                     value = textDescription,
                     onValueChange = { textDescription = it },
                     label = { Text("Description", color = Color.White) },
-                    singleLine = true,
-                    modifier = Modifier.fillMaxWidth(0.8f),
+                    singleLine = false,
+                    modifier = Modifier
+                        .fillMaxWidth(0.8f)
+                        .fillMaxHeight(0.5f),
                     colors = TextFieldDefaults.outlinedTextFieldColors(
                         focusedBorderColor = Color.White,
                         unfocusedBorderColor = Color.DarkGray,
